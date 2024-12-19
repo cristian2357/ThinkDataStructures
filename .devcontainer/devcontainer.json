@@ -9,7 +9,8 @@
 			"version": "none",
 			"installMaven": "true",
 			"installGradle": "true"
-		}
+		},
+		"ghcr.io/devcontainers-extra/features/ant-sdkman:2": {}
 	},
 	"customizations": {
 		"vscode": {
@@ -38,7 +39,8 @@
 				"Codeium.codeium",
 				"redhat.vscode-xml",
 				"zerodind.familiar-java-themes",
-				"humao.rest-client"
+				"humao.rest-client",
+				"pedroguerra.ant-tree-viewer"
 			]
 		}
 	}
