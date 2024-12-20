@@ -42,11 +42,18 @@ public class MyArrayList<T> implements List<T> {
 		System.out.println(Arrays.toString(mal.toArray()) + " size = " + mal.size);
 	}
 
-	@Override
-	public boolean add(T element) {
-		// TODO: FILL THIS IN!
-		return false;
-	}
+    @Override
+    public boolean add(T element) {
+        if (size >= array.length) {
+		    // make a bigger array and copy over the elements
+            T[] bigger = (T[]) new Object[array.length * 2];
+            System.arraycopy(array, 0, bigger, 0, array.length);
+            array = bigger;
+        }
+        array[size] = element;
+        size++;
+        return true;
+    }
 
 	@Override
 	public void add(int index, T element) {
@@ -110,7 +117,9 @@ public class MyArrayList<T> implements List<T> {
 
 	@Override
 	public int indexOf(Object target) {
-		// TODO: FILL THIS IN!
+		for (int i = 0; i < this.size; i++)
+			if ((target == null && array[i] == null) || (this.array[i].equals(target)))
+				return i;
 		return -1;
 	}
 
@@ -181,8 +190,11 @@ public class MyArrayList<T> implements List<T> {
 
 	@Override
 	public T remove(int index) {
-		// TODO: FILL THIS IN!
-		return null;
+		T oldElement = this.get(index);
+		for (int i = index; i < size; i++)
+			array[i] = array[i + 1];
+		size -= 1;
+		return oldElement;
 	}
 
 	@Override
@@ -201,8 +213,9 @@ public class MyArrayList<T> implements List<T> {
 
 	@Override
 	public T set(int index, T element) {
-		// TODO: FILL THIS IN!
-		return null;
+		T oldElement = this.get(index);
+		this.array[index] = element;
+		return oldElement;
 	}
 
 	@Override
