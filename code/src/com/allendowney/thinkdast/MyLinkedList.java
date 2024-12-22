@@ -3,11 +3,7 @@
  */
 package com.allendowney.thinkdast;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 /**
  * @author downey
@@ -82,21 +78,11 @@ public class MyLinkedList<E> implements List<E> {
 
 	@Override
 	public void add(int index, E element) {
-		if (index == size) {
-			add(element);
-			return;
-		}
-		Integer indexToGet = index;
-		if (index > 0)
-			indexToGet = index - 1;
-		Node currentNode = this.getNode(indexToGet);
-		Node newNode = new Node(element);
-		if (index == 0) {
-			newNode.next = this.head;
-			this.head = newNode;
-		} else {
-			newNode.next = currentNode.next;
-			currentNode.next = newNode;
+		if (index == 0)
+			this.head = new Node(element, this.head);
+		else {
+			Node previousNodeOfNodeToReplace = this.getNode(index - 1);
+			previousNodeOfNodeToReplace.next = new Node(element, previousNodeOfNodeToReplace.next);
 		}
 		size++;
 	}
@@ -160,16 +146,11 @@ public class MyLinkedList<E> implements List<E> {
 	@Override
 	public int indexOf(Object target) {
 		Node currentNode = this.head;
-		if (currentNode.data.equals(target))
-			return 0;
-		Integer count = 0;
-		while (currentNode.next != null) {
-			currentNode = currentNode.next;
-			count++;
+		for (int i = 0; i < size; i++) {
 			if (this.equals(target, currentNode.data))
-				return count;
+				return i;
+			currentNode = currentNode.next;
 		}
-
 		return -1;
 	}
 
